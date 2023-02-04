@@ -5,13 +5,19 @@ import GoalInput from './components/GoalInput';
 import GoalItem from './components/GoalItem';
 
 export default function App() {
-  const [courseGoals, setCoursGoals] = useState([])
+  const [courseGoals, setCourseGoals] = useState([])
 
   const addGoalHandler = enteredGoalText => {
-    setCoursGoals(previousCourseGoals => [
+    setCourseGoals(previousCourseGoals => [
       { text: enteredGoalText, _id: Math.random() },
       ...previousCourseGoals
     ])
+  }
+
+  const deleteGoalHandler = goalId => {
+    setCourseGoals(previousCourseGoals => {
+      return previousCourseGoals.filter(goal => goal._id !== goalId)
+    })
   }
 
   return (
@@ -22,7 +28,7 @@ export default function App() {
           refreshing={true}
           data={courseGoals}
           renderItem={itemData => {
-            return <GoalItem text={itemData.item.text} />
+            return <GoalItem goalData={itemData.item} onDeleteGoal={deleteGoalHandler} />
           }}
           keyExtractor={(item, index) => {
             return item._id

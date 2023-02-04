@@ -1,9 +1,12 @@
-import { StyleSheet, View, Text } from "react-native"
+import { StyleSheet, View, Text, Pressable } from "react-native"
 
 const GoalItem = props => {
-    return <View style={styles.goalItem}>
-        <Text style={styles.goalText}>{props.text}</Text>
-    </View>
+
+    return <Pressable onPress={props.onDeleteGoal.bind(this, props.goalData._id)}>
+        <View style={styles.goalItem}>
+            <Text style={styles.goalText}>{props.goalData.text}</Text>
+        </View>
+    </Pressable>
 }
 
 const styles = StyleSheet.create({
